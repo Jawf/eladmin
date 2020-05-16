@@ -40,12 +40,8 @@ public class SecurityUtils {
      * @return 系统用户名称
      */
     public static String getCurrentUsername() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            throw new BadRequestException(HttpStatus.UNAUTHORIZED, "当前登录状态过期");
-        }
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return userDetails.getUsername();
+        UserDetails userDetails = getCurrentUser();
+        return new JSONObject(new JSONObject(userDetails).get("user")).get("username", String.class);
     }
 
     /**
