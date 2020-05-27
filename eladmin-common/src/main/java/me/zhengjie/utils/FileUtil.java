@@ -85,7 +85,11 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         if ((filename != null) && (filename.length() > 0)) {
             int dot = filename.lastIndexOf('.');
             if ((dot >-1) && (dot < (filename.length()))) {
-                return filename.substring(0, dot);
+				int startIdx = 0;
+				if (dot >= 26) {
+					startIdx = dot - 26;
+				}
+                return filename.substring(startIdx, dot);
             }
         }
         return filename;
